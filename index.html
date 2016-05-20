@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<style>
 			img {
+				display: block;
 				width: 150px;
 			}
 		</style>
@@ -13,50 +14,48 @@
 	</body>
 	<script>
 		var cats = {
-			"cats": [
+			"list": [
 			{
 				"name": "Wolfie",
-				"src": "wolfie.jpg"
+				"src": "wolfie.jpg",
+				"clicks": 0
 			},
 			{
 				"name": "Chewie",
-				"src": "chewie.jpg"
+				"src": "chewie.jpg",
+				"clicks": 0
+			},
+			{
+				"name": "Winkie",
+				"src": "winkie.jpg",
+				"clicks": 0
 			}
 			],
 			display: function(){
-				for (var i=0; i<cats.cats.length; i++){
-					var displayHTML = catHTML
-					.replace("%catname%", cats.cats[i].name)
-					.replace("%id%", cats.cats[i].name)
-					.replace("%src%", cats.cats[i].src);
-					document.body.innerHTML += displayHTML;
-				};
-				var catElements = document.getElementsByClassName("cat");
-				for (var i=0; i<catElements.length; i++){
-					catElements[i].addEventListener('click', function(){
-						var paragraph = this.nextSibling;
-						var clicks = Number(paragraph.innerHTML);
-						if (isNaN(clicks)){
-							clicks = 0;
+				for (var i=0; i<cats.list.length; i++){
+					var catObj = cats.list[i];
+					var img = document.createElement('img');
+					var para = document.createElement('p');
+					img.id = catObj.name;
+					img.src = catObj.src;
+					document.body.appendChild(img);
+					document.body.appendChild(para);
+					para.innerHTML = "Never been clicked.";
+					img.addEventListener('click', function(){
+						var clickedID = this.id;
+						var clicks;
+						for (var i=0; i<cats.list.length; i++){
+							if (cats.list[i].name == clickedID) {
+								cats.list[i].clicks++;
+								clicks = cats.list[i].clicks;
+							}
 						}
-						clicks++;
-						paragraph.innerHTML = clicks;
-					});
+						this.nextSibling.innerHTML = clicks;
+					})
 				};
 			}
 		};
-		var catHTML =
-			'<h2>%catname%</h2>' +
-			'<img id="%id%" class="cat" src="%src%">' +
-			'<p>&nbsp</p>';
 
 		cats.display();
-		// var elem = document.getElementById("cat");
-		// var paragraph = document.getElementById("clicks");
-		// var clicks = 0;
-		// elem.addEventListener('click', function(){
-		// 	clicks++;
-		// 	paragraph.innerHTML = clicks;
-		// })
 	</script>
 </html>
