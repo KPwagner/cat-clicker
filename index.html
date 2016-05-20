@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<title>Cat Clicker</title>
+		<meta charset="utf-8">
+		<style>
+			img {
+				width: 150px;
+			}
+		</style>
+	</head>
+	<body>
+
+	</body>
+	<script>
+		var cats = {
+			"cats": [
+			{
+				"name": "Wolfie",
+				"src": "wolfie.jpg"
+			},
+			{
+				"name": "Chewie",
+				"src": "chewie.jpg"
+			}
+			],
+			display: function(){
+				for (var i=0; i<cats.cats.length; i++){
+					var displayHTML = catHTML
+					.replace("%catname%", cats.cats[i].name)
+					.replace("%id%", cats.cats[i].name)
+					.replace("%src%", cats.cats[i].src);
+					document.body.innerHTML += displayHTML;
+				};
+				var catElements = document.getElementsByClassName("cat");
+				for (var i=0; i<catElements.length; i++){
+					catElements[i].addEventListener('click', function(){
+						var paragraph = this.nextSibling;
+						var clicks = Number(paragraph.innerHTML);
+						if (isNaN(clicks)){
+							clicks = 0;
+						}
+						clicks++;
+						paragraph.innerHTML = clicks;
+					});
+				};
+			}
+		};
+		var catHTML =
+			'<h2>%catname%</h2>' +
+			'<img id="%id%" class="cat" src="%src%">' +
+			'<p>&nbsp</p>';
+
+		cats.display();
+		// var elem = document.getElementById("cat");
+		// var paragraph = document.getElementById("clicks");
+		// var clicks = 0;
+		// elem.addEventListener('click', function(){
+		// 	clicks++;
+		// 	paragraph.innerHTML = clicks;
+		// })
+	</script>
+</html>
