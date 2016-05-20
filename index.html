@@ -3,14 +3,41 @@
 		<title>Cat Clicker</title>
 		<meta charset="utf-8">
 		<style>
+			body, * {
+				margin: 0;
+				padding: 0;
+			}
+			ul {
+				display: block;
+				width: 25%;
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				float: left;
+			}
+			li {
+				margin: 5px 0;
+			}
+			#featured {
+				display: block;
+				width: 75%;
+				height: 300px;
+				float: left;
+			}
 			img {
 				display: block;
-				width: 150px;
+				width: 90%;
+				margin: 0 auto;
+				padding: 0;
 			}
 		</style>
 	</head>
 	<body>
-
+		<ul id="cat-list"></ul>
+		<div id="featured">
+			<img>
+			<p id="clicks"></p>
+		</div>
 	</body>
 	<script>
 		var cats = {
@@ -29,30 +56,48 @@
 				"name": "Winkie",
 				"src": "winkie.jpg",
 				"clicks": 0
+			},
+			{
+				"name": "Massie",
+				"src": "massie.jpg",
+				"clicks": 0
+			},
+			{
+				"name": "Dewie",
+				"src": "dewie.jpg",
+				"clicks": 0
 			}
 			],
 			display: function(){
+				var catList = document.getElementById("cat-list");
+				var featuredImg = document.getElementById("featured").childNodes[1];
+				var clicksPara = document.getElementById("clicks");
 				for (var i=0; i<cats.list.length; i++){
 					var catObj = cats.list[i];
 					var img = document.createElement('img');
-					var para = document.createElement('p');
 					img.id = catObj.name;
 					img.src = catObj.src;
-					document.body.appendChild(img);
-					document.body.appendChild(para);
-					para.innerHTML = "Never been clicked.";
+					catList.appendChild(document.createElement('li')).appendChild(img);
 					img.addEventListener('click', function(){
-						var clickedID = this.id;
-						var clicks;
-						for (var i=0; i<cats.list.length; i++){
-							if (cats.list[i].name == clickedID) {
-								cats.list[i].clicks++;
-								clicks = cats.list[i].clicks;
+						featuredImg.src = this.src;
+						featuredImg.id = this.id;
+						for (var i=0; i<cats.list.length; i++) {
+							if (this.id == cats.list[i].name){
+								clicksPara.innerHTML = cats.list[i].clicks;
 							}
 						}
-						this.nextSibling.innerHTML = clicks;
 					})
 				};
+				featuredImg.addEventListener('click', function(){
+					console.log("clicked");
+					for (var i=0; i<cats.list.length; i++) {
+						if (this.id == cats.list[i].name){
+							cats.list[i].clicks++;
+							clicksPara.innerHTML = cats.list[i].clicks;
+						}
+					}
+				});
+
 			}
 		};
 
