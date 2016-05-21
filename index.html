@@ -41,7 +41,7 @@
 	</body>
 	<script>
 		var model = {
-			cats: [
+			"cats": [
 				{
 					"name": "Wolfie",
 					"src": "wolfie.jpg",
@@ -72,20 +72,32 @@
 
 		var octopus = {
 			getAllCats: function(){
-
+				var cats = model.cats.filter(function(cat){
+					return cat;
+				});
+				console.log(cats);
+				return cats;
 			},
+
+			// getVisiblePizzas: function() {
+			//     var visiblePizzas = data.pizzas.filter(function(pizza) {
+			//         return pizza.visible;
+			//     });
+			//     return visiblePizzas;
+			// },
+
 			getCatDetail: function(id){
 
 			},
 			init: function(){
-
+				view.list.init();
 			}
 		};
 
 		var view = {
 			list: {
 				init: function(){
-
+					console.log("test");
 				},
 				render: function(){
 
@@ -101,73 +113,73 @@
 			}
 		};
 
+		octopus.init();
 
 
 
 
 
+		// var cats = {
+		// 	"list": [
+		// 	{
+		// 		"name": "Wolfie",
+		// 		"src": "wolfie.jpg",
+		// 		"clicks": 0
+		// 	},
+		// 	{
+		// 		"name": "Chewie",
+		// 		"src": "chewie.jpg",
+		// 		"clicks": 0
+		// 	},
+		// 	{
+		// 		"name": "Winkie",
+		// 		"src": "winkie.jpg",
+		// 		"clicks": 0
+		// 	},
+		// 	{
+		// 		"name": "Massie",
+		// 		"src": "massie.jpg",
+		// 		"clicks": 0
+		// 	},
+		// 	{
+		// 		"name": "Dewie",
+		// 		"src": "dewie.jpg",
+		// 		"clicks": 0
+		// 	}
+		// 	],
+		// 	display: function(){
+		// 		var catList = document.getElementById("cat-list");
+		// 		var featuredImg = document.getElementById("featured").childNodes[1];
+		// 		var clicksPara = document.getElementById("clicks");
+		// 		for (var i=0; i<cats.list.length; i++){
+		// 			var catObj = cats.list[i];
+		// 			var img = document.createElement('img');
+		// 			img.id = catObj.name;
+		// 			img.src = catObj.src;
+		// 			catList.appendChild(document.createElement('li')).appendChild(img);
+		// 			img.addEventListener('click', function(){
+		// 				featuredImg.src = this.src;
+		// 				featuredImg.id = this.id;
+		// 				for (var i=0; i<cats.list.length; i++) {
+		// 					if (this.id == cats.list[i].name){
+		// 						clicksPara.innerHTML = cats.list[i].clicks;
+		// 					}
+		// 				}
+		// 			})
+		// 		};
+		// 		featuredImg.addEventListener('click', function(){
+		// 			console.log("clicked");
+		// 			for (var i=0; i<cats.list.length; i++) {
+		// 				if (this.id == cats.list[i].name){
+		// 					cats.list[i].clicks++;
+		// 					clicksPara.innerHTML = cats.list[i].clicks;
+		// 				}
+		// 			}
+		// 		});
 
-		var cats = {
-			"list": [
-			{
-				"name": "Wolfie",
-				"src": "wolfie.jpg",
-				"clicks": 0
-			},
-			{
-				"name": "Chewie",
-				"src": "chewie.jpg",
-				"clicks": 0
-			},
-			{
-				"name": "Winkie",
-				"src": "winkie.jpg",
-				"clicks": 0
-			},
-			{
-				"name": "Massie",
-				"src": "massie.jpg",
-				"clicks": 0
-			},
-			{
-				"name": "Dewie",
-				"src": "dewie.jpg",
-				"clicks": 0
-			}
-			],
-			display: function(){
-				var catList = document.getElementById("cat-list");
-				var featuredImg = document.getElementById("featured").childNodes[1];
-				var clicksPara = document.getElementById("clicks");
-				for (var i=0; i<cats.list.length; i++){
-					var catObj = cats.list[i];
-					var img = document.createElement('img');
-					img.id = catObj.name;
-					img.src = catObj.src;
-					catList.appendChild(document.createElement('li')).appendChild(img);
-					img.addEventListener('click', function(){
-						featuredImg.src = this.src;
-						featuredImg.id = this.id;
-						for (var i=0; i<cats.list.length; i++) {
-							if (this.id == cats.list[i].name){
-								clicksPara.innerHTML = cats.list[i].clicks;
-							}
-						}
-					})
-				};
-				featuredImg.addEventListener('click', function(){
-					console.log("clicked");
-					for (var i=0; i<cats.list.length; i++) {
-						if (this.id == cats.list[i].name){
-							cats.list[i].clicks++;
-							clicksPara.innerHTML = cats.list[i].clicks;
-						}
-					}
-				});
+		// 	}
+		// };
 
-			}
-		};
-
-		cats.display();
+		// cats.display();
 	</script>
 </html>
