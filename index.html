@@ -72,23 +72,13 @@
 
 		var octopus = {
 			getAllCats: function(){
-				var cats = model.cats.filter(function(cat){
-					return cat;
-				});
-				console.log(cats);
-				return cats;
+				return model.cats
 			},
-
-			// getVisiblePizzas: function() {
-			//     var visiblePizzas = data.pizzas.filter(function(pizza) {
-			//         return pizza.visible;
-			//     });
-			//     return visiblePizzas;
-			// },
 
 			getCatDetail: function(id){
 
 			},
+
 			init: function(){
 				view.list.init();
 			}
@@ -97,10 +87,18 @@
 		var view = {
 			list: {
 				init: function(){
-					console.log("test");
+					view.list.render();
 				},
 				render: function(){
-
+					console.log("rendering");
+					console.log(octopus.getAllCats());
+					var catList = document.getElementById("cat-list");
+					octopus.getAllCats().forEach(function(cat){
+						var newListItem = document.createElement("li");
+						var newImage = document.createElement("img");
+						newImage.src = cat.src;
+						catList.appendChild(newListItem).appendChild(newImage);
+					})
 				}
 			},
 			detail: {
