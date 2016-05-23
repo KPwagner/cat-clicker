@@ -35,7 +35,7 @@
 	<body>
 		<ul id="cat-list"></ul>
 		<div id="featured">
-			<img>
+			<img class="featured-image">
 			<p id="clicks"></p>
 		</div>
 	</body>
@@ -72,112 +72,76 @@
 
 		var octopus = {
 			getAllCats: function(){
-				return model.cats
+				return model.cats;
 			},
 
 			getCatDetail: function(id){
+				var catDetail = {};
+				for (var i=0; i<model.cats.length; i++){
+					if (model.cats[i].name == id){
+						catDetail.src = model.cats[i].src;
+						catDetail.name = model.cats[i].name;
+						catDetail.clicks = model.cats[i].clicks;
+					}
+				}
+				return catDetail;
+			},
 
+			addCatClick: function(id){
+				for (var i=0; i<model.cats.length; i++){
+					if (model.cats[i].name == id) {
+						model.cats[i].clicks++;
+					};
+				};
 			},
 
 			init: function(){
 				view.list.init();
+				view.detail.init();
 			}
 		};
 
 		var view = {
 			list: {
 				init: function(){
-					view.list.render();
+					this.render();
 				},
 				render: function(){
-					console.log("rendering");
-					console.log(octopus.getAllCats());
 					var catList = document.getElementById("cat-list");
 					octopus.getAllCats().forEach(function(cat){
 						var newListItem = document.createElement("li");
 						var newImage = document.createElement("img");
 						newImage.src = cat.src;
+						newImage.id = cat.name;
 						catList.appendChild(newListItem).appendChild(newImage);
+						newImage.addEventListener('click', function(){
+							view.detail.render(this.id);
+						})
 					})
 				}
 			},
 			detail: {
 				init: function(){
-
+					this.render(octopus.getAllCats()[0].name);
+					var featuredCatImage = document.getElementsByClassName("featured-image")[0];
+					var featuredCatClicks = document.getElementById("clicks");
+					featuredCatImage.addEventListener('click', function(){
+						octopus.addCatClick(this.id);
+						featuredCatClicks.innerHTML = octopus.getCatDetail(this.id).clicks;
+					});
 				},
-				render: function(){
-
+				render: function(catName){
+					var featuredCat = document.getElementById("featured");
+					var featuredCatImage = document.getElementsByClassName("featured-image")[0];
+					var featuredCatClicks = document.getElementById("clicks");
+					var catDetail = octopus.getCatDetail(catName);
+					featuredCatImage.src = catDetail.src;
+					featuredCatImage.id = catDetail.name;
+					featuredCatClicks.innerHTML = catDetail.clicks;
 				}
 			}
 		};
 
 		octopus.init();
-
-
-
-
-
-		// var cats = {
-		// 	"list": [
-		// 	{
-		// 		"name": "Wolfie",
-		// 		"src": "wolfie.jpg",
-		// 		"clicks": 0
-		// 	},
-		// 	{
-		// 		"name": "Chewie",
-		// 		"src": "chewie.jpg",
-		// 		"clicks": 0
-		// 	},
-		// 	{
-		// 		"name": "Winkie",
-		// 		"src": "winkie.jpg",
-		// 		"clicks": 0
-		// 	},
-		// 	{
-		// 		"name": "Massie",
-		// 		"src": "massie.jpg",
-		// 		"clicks": 0
-		// 	},
-		// 	{
-		// 		"name": "Dewie",
-		// 		"src": "dewie.jpg",
-		// 		"clicks": 0
-		// 	}
-		// 	],
-		// 	display: function(){
-		// 		var catList = document.getElementById("cat-list");
-		// 		var featuredImg = document.getElementById("featured").childNodes[1];
-		// 		var clicksPara = document.getElementById("clicks");
-		// 		for (var i=0; i<cats.list.length; i++){
-		// 			var catObj = cats.list[i];
-		// 			var img = document.createElement('img');
-		// 			img.id = catObj.name;
-		// 			img.src = catObj.src;
-		// 			catList.appendChild(document.createElement('li')).appendChild(img);
-		// 			img.addEventListener('click', function(){
-		// 				featuredImg.src = this.src;
-		// 				featuredImg.id = this.id;
-		// 				for (var i=0; i<cats.list.length; i++) {
-		// 					if (this.id == cats.list[i].name){
-		// 						clicksPara.innerHTML = cats.list[i].clicks;
-		// 					}
-		// 				}
-		// 			})
-		// 		};
-		// 		featuredImg.addEventListener('click', function(){
-		// 			console.log("clicked");
-		// 			for (var i=0; i<cats.list.length; i++) {
-		// 				if (this.id == cats.list[i].name){
-		// 					cats.list[i].clicks++;
-		// 					clicksPara.innerHTML = cats.list[i].clicks;
-		// 				}
-		// 			}
-		// 		});
-
-		// 	}
-		// };
-
-		// cats.display();
 	</script>
 </html>
